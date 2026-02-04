@@ -1,0 +1,102 @@
+.GlassContainer {
+  --corner-radius: 24px;
+  --base-strength: 14px;
+  --extra-blur: 2px;
+  --softness: 12px;
+
+  --total-strength: calc(var(--base-strength) + var(--extra-blur));
+  --edge-width: calc(0.3px + (var(--softness) * 0.1));
+  --emboss-width: calc((var(--softness) * 0.38));
+  --refraction-width: calc((var(--softness) * 0.3));
+
+  position: relative;
+  overflow: hidden; /* IMPORTANT */
+  border-radius: var(--corner-radius);
+  pointer-events: none;
+}
+
+/* ================= CONTENT ================= */
+
+.GlassContentWrapper {
+  position: relative;
+  z-index: 50;
+  overflow: hidden;
+  border-radius: var(--corner-radius);
+}
+
+.GlassContent {
+  position: relative;
+  pointer-events: auto;
+}
+
+/* ================= MATERIAL ================= */
+
+.GlassMaterial {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  pointer-events: none;
+}
+
+.GlassMaterial > div {
+  position: absolute;
+  inset: 0;
+  border-radius: var(--corner-radius);
+}
+
+/* ================= GLASS LAYERS ================= */
+
+/* Outer blur (neutral) */
+.GlassEdgeReflection {
+  margin: calc(var(--total-strength) * -1);
+  border-radius: calc(var(--corner-radius) + var(--total-strength));
+  backdrop-filter: blur(var(--total-strength));
+}
+
+/* Inner emboss */
+.GlassEmbossReflection {
+  padding: var(--emboss-width);
+  backdrop-filter: blur(calc(var(--total-strength) * 1.2));
+  mask:
+    linear-gradient(#fff 0 0) padding-box,
+    linear-gradient(#fff 0 0) content-box;
+  mask-composite: exclude, exclude;
+}
+
+/* Very subtle refraction */
+.GlassRefraction {
+  padding: var(--refraction-width);
+  backdrop-filter: blur(1px);
+  mask:
+    linear-gradient(#fff 0 0) padding-box,
+    linear-gradient(#fff 0 0) content-box;
+  mask-composite: exclude, exclude;
+}
+
+/* Core blur */
+.GlassBlur {
+  margin: calc(var(--emboss-width) + var(--refraction-width));
+  border-radius: calc(
+    var(--corner-radius) - (var(--emboss-width) + var(--refraction-width))
+  );
+  backdrop-filter: blur(var(--extra-blur));
+}
+
+/* Blend layers (very light) */
+.BlendLayers {
+  backdrop-filter: blur(1px);
+}
+
+.BlendEdge {
+  backdrop-filter: blur(0.5px);
+}
+
+/* Soft highlight (NO color) */
+.Highlight {
+  padding: 1px;
+  backdrop-filter: blur(0.5px);
+  mask:
+    linear-gradient(#fff 0 0) padding-box,
+    linear-gradient(#fff 0 0) content-box;
+  mask-composite: exclude, exclude;
+}
