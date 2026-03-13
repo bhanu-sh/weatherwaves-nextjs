@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 "use client";
 
 import React from "react";
@@ -30,3 +31,12 @@ export default function Loader() {
     </div>
   );
 }
+=======
+import React from 'react'
+
+export default function Loader() {
+  return (
+    <div>Loader</div>
+  )
+}
+>>>>>>> a32e236 (feat: Implement dynamic weather display for city pages, update loader styling, and refine LiquidGlassCard component.)
