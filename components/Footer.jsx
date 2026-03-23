@@ -40,15 +40,6 @@ export default function Footer() {
             </Link>
           </div>
         </div>
-
-        <div className="text-sm flex gap-4">
-          <Link href="/" className="hover:text-white transition-colors">
-            Home
-          </Link>
-          <Link href="/test" className="hover:text-white transition-colors">
-            Test Lab
-          </Link>
-        </div>
       </div>
     </footer>
   );
